@@ -1,3 +1,9 @@
+//! # Battery Manager for Wearable devices
+//!
+//! BMW is a framework for the wearable devices which based on gauge and charger
+//! to manage the battery and also trigger actions by the plugins
+//!
+
 pub mod charger;
 pub mod gauge;
 pub mod log;
