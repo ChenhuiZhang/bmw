@@ -1,6 +1,15 @@
 use anyhow::{Context, Result};
 use std::fs;
 
+/// A gauge chip provide basic sysfs interfaces for the application which
+/// include capacity (SOC), current, voltage, full chargerd capacity and charge
+/// now capacity.
+///
+/// `GaugeBase` trait implement the get functions for all the above info when
+/// user set the right path.
+///
+/// Additionally, BMW provides a procedural macro called `Gauge` to automatically
+/// generate `GaugeBase` implementations for structs in your program.
 pub trait GaugeBase {
     fn path(&self) -> &'static str;
 
@@ -25,6 +34,15 @@ pub trait GaugeBase {
     }
 }
 
+/// A gauge chip will provide more sysfs interface for the application which
+/// include time_to_full, time_to_empty and cycle_count value.
+///
+/// `GaugeAdvance` trait implement the get functions for all the above info and
+/// implement the `GaugeBase` trait as dependenc.
+///
+/// Additionally, BMW provides a procedural macro called `GaugeAdv` to
+/// automatically generate `GaugeAdvance` implementations for structs in your
+/// program.
 pub trait GaugeAdvance: GaugeBase {
     fn get_time_to_full(&self) -> Result<u32> {
         read_u32_property(

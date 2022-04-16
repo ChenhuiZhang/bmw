@@ -1,6 +1,15 @@
 use anyhow::{Context, Result};
 use std::fs;
 
+/// A charger chip provide basic sysfs interfaces for the application which
+/// include enable/disable, set_max_charger_current, set_max_charger_voltage.
+///
+/// `ChargerBase` trait implement the functions for all the above info when
+/// user set the right path.
+///
+/// Additionally, BMW provides a procedural macro called `Charger` to
+/// automatically generate `ChargerBase` implementations for structs in your
+/// program.
 pub trait ChargerBase {
     fn path(&self) -> &'static str;
 

@@ -1,3 +1,21 @@
+//! This crate provides three derive macros.
+//!
+//! ```edition2021
+//! # use bmw::{Charger, Gauge, GaugeAdv};
+//! #
+//! #[derive(Gauge)]
+//! # struct BQ27621;
+//!
+//! #[derive(GaugeAdv)]
+//! # struct BQ27z561;
+//!
+//! #[derive(Charger)]
+//! # struct BQ24296;
+//!
+//! # fn main() {}
+//! ```
+//!
+
 mod context;
 
 use context::PowerSupplyContext;
