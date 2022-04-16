@@ -11,4 +11,4 @@ license = "MIT OR Apache-2.0"
 anyhow = "1.0.56"
 mio = "0.8.1"
 udev = { version = "0.6.3", features = ["mio08"] }
-bmw-derive = { path = "derive" }
+bmw-derive = { path = "derive", version = "0.1.0" }
