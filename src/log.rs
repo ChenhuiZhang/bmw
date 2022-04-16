@@ -8,8 +8,8 @@ impl Plugin for PluginLog {
     fn process(
         &self,
         t: crate::plugin::EventType,
-        gauge: &dyn crate::gauge::Gauge,
-        charger: &dyn crate::charger::Charger,
+        gauge: &dyn crate::gauge::GaugeBase,
+        charger: &dyn crate::charger::ChargerBase,
     ) {
         println!("{}", gauge.get_capacity().unwrap());
     }

@@ -1,6 +1,6 @@
-use crate::charger::Charger;
-use crate::gauge::Gauge;
 use std::any::Any;
+
+use crate::{charger::ChargerBase, gauge::GaugeBase};
 
 #[derive(Copy, Clone, Debug)]
 pub enum EventType {
@@ -16,5 +16,5 @@ pub trait Plugin: Any + Send + Sync {
         std::any::type_name::<Self>()
     }
     /// Plugin process with the gauge and charger info
-    fn process(&self, t: EventType, gauge: &dyn Gauge, charger: &dyn Charger);
+    fn process(&self, t: EventType, gauge: &dyn GaugeBase, charger: &dyn ChargerBase);
 }

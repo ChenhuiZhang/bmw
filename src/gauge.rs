@@ -1,13 +1,7 @@
 use anyhow::{Context, Result};
 use std::fs;
 
-pub trait Gauge {
-    // Static method signature; `Self` refers to the implementor type.
-    fn new() -> Self
-    where
-        Self: Sized;
-
-    // Instance method signatures; these will return a string.
+pub trait GaugeBase {
     fn path(&self) -> &'static str;
 
     fn get_capacity(&self) -> Result<u32> {
@@ -31,7 +25,7 @@ pub trait Gauge {
     }
 }
 
-pub trait GaugeAdv: Gauge {
+pub trait GaugeAdvance: GaugeBase {
     fn get_time_to_full(&self) -> Result<u32> {
         read_u32_property(
             format!("{}{}", self.path(), "/time_to_full_now").as_str(),
@@ -50,32 +44,6 @@ pub trait GaugeAdv: Gauge {
         read_u32_property(format!("{}{}", self.path(), "/cycle_count").as_str(), 1)
     }
 }
-
-pub struct BQ27621;
-
-pub struct BQ27z561;
-
-impl Gauge for BQ27621 {
-    fn new() -> BQ27621 {
-        BQ27621
-    }
-
-    fn path(&self) -> &'static str {
-        "bq27621"
-    }
-}
-
-impl Gauge for BQ27z561 {
-    fn new() -> BQ27z561 {
-        BQ27z561
-    }
-
-    fn path(&self) -> &'static str {
-        "bq27z561"
-    }
-}
-
-impl GaugeAdv for BQ27z561 {}
 
 fn read_i32_property(path: &str, factor: u32) -> Result<i32> {
     let s = fs::read_to_string(path).context(format!("Failed to read {}", path))?;

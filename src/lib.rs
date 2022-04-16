@@ -10,22 +10,23 @@ pub mod log;
 mod plugin;
 mod poll;
 
-use crate::charger::Charger;
-use crate::gauge::Gauge;
 use crate::plugin::EventType;
 use crate::plugin::Plugin;
+pub use bmw_derive::*;
+use charger::ChargerBase;
+use gauge::GaugeBase;
 
 use std::sync::mpsc::channel;
 use std::thread;
 
 pub struct BM {
-    gauge: Box<dyn Gauge>,
-    charger: Box<dyn Charger>,
+    gauge: Box<dyn GaugeBase>,
+    charger: Box<dyn ChargerBase>,
     plugins: Vec<Box<dyn Plugin>>,
 }
 
 impl BM {
-    pub fn new(g: Box<dyn Gauge>, c: Box<dyn Charger>) -> BM {
+    pub fn new(g: Box<dyn GaugeBase>, c: Box<dyn ChargerBase>) -> BM {
         Self {
             gauge: g,
             charger: c,

@@ -1,11 +1,7 @@
 use anyhow::{Context, Result};
 use std::fs;
 
-pub trait Charger {
-    fn new() -> Self
-    where
-        Self: Sized;
-
+pub trait ChargerBase {
     fn path(&self) -> &'static str;
 
     fn enable_charger(&self, en: bool) -> Result<()> {
@@ -33,16 +29,4 @@ fn write_u32_property(path: &str, value: u32) -> Result<()> {
     fs::write(path, value.to_string()).context(format!("Failed to write {}", path))?;
 
     Ok(())
-}
-
-pub struct BQ24296;
-
-impl Charger for BQ24296 {
-    fn new() -> Self {
-        BQ24296
-    }
-
-    fn path(&self) -> &'static str {
-        "bq24296-charger"
-    }
 }
