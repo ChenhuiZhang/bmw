@@ -1,0 +1,43 @@
+name: CI
+
+# This workflow run tests and build for each push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  test_bmw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Update local toolchain
+        run: |
+          rustup update
+          rustup component add clippy       
+
+      - name: Toolchain info
+        run: |
+          cargo --version --verbose
+          rustc --version
+          cargo clippy --version          
+
+      - name: Lint
+        run: |
+          cd phaser
+          cargo fmt -- --check
+          cargo clippy -- -D warnings          
+
+      - name: Test
+        run: |
+          cd bmw
+          cargo check
+          cargo test --all          
+
+      - name: Build
+        run: |
+          cd bmw
+          cargo build --release
