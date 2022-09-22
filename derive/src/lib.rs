@@ -36,7 +36,7 @@ pub fn derive_gauge_advance(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
     PowerSupplyContext::new(input, "GaugeAdvance")
-        .generate()
+        .generate_adv()
         .into()
 }
 

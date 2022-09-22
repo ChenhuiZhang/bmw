@@ -35,4 +35,24 @@ impl PowerSupplyContext {
             }
         }
     }
+
+    pub fn generate_adv(&self) -> TokenStream {
+        let name = &self.name;
+        let path = self.path.as_str();
+        let trait_name = Ident::new(self.trait_name.as_str(), name.span());
+        let trait_base = Ident::new(
+            self.trait_name.replace("Advance", "Base").as_str(),
+            name.span(),
+        );
+        quote! {
+            impl #trait_base for #name {
+                fn path(&self) -> &'static str {
+                    #path
+                }
+            }
+
+            impl #trait_name for #name {
+            }
+        }
+    }
 }
