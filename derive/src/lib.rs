@@ -26,17 +26,15 @@ use syn::{parse_macro_input, DeriveInput};
 pub fn derive_gauge(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
-    PowerSupplyContext::new(input, "GaugeBase")
-        .generate()
-        .into()
+    PowerSupplyContext::new(input).generate_gauge_base().into()
 }
 
 #[proc_macro_derive(GaugeAdv)]
 pub fn derive_gauge_advance(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
-    PowerSupplyContext::new(input, "GaugeAdvance")
-        .generate_adv()
+    PowerSupplyContext::new(input)
+        .generate_gauge_advance()
         .into()
 }
 
@@ -44,7 +42,7 @@ pub fn derive_gauge_advance(input: TokenStream) -> TokenStream {
 pub fn derive_charger(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
 
-    PowerSupplyContext::new(input, "ChargerBase")
-        .generate()
+    PowerSupplyContext::new(input)
+        .generate_charger_base()
         .into()
 }

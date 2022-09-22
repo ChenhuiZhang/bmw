@@ -1,8 +1,6 @@
 extern crate bmw;
 
 use bmw::bmw::BM;
-use bmw::charger::ChargerBase;
-use bmw::gauge::GaugeBase;
 use bmw::log;
 use bmw::Charger;
 use bmw::Gauge;
